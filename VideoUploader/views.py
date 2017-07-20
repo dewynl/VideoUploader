@@ -1,3 +1,5 @@
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile, SimpleUploadedFile
+from django.core.files.storage import default_storage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -40,15 +42,25 @@ def uploadVideo(request):
         return HttpResponse(template.render({"form" : form}), request)
     elif request.method == 'POST':
         print(request.POST)
-        form = UploadForm(request.POST)
+        print(request.FILES)
+        form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             titulo = form.data.get("titulo")
             tags = form.data.get("tags")
-            video = form.data.get("video")
+            video = request.FILES['video']
             descripcion = form.data.get('descripcion')
             privado = form.data.get('privado')
-            thumbnail = form.data.get('thumbnail')
+            usuarios = None
+            if privado == 'on':
+                usuarios = privado = form.data.get('usuarios')
+            thumbnail = request.FILES['thumbnail']
 
-            return HttpResponse("Validongo")
+            ok = client.service.uploadVideo(titulo, tags, video.temporary_file_path(), descripcion, privado,
+                                                usuarios, thumbnail.temporary_file_path())
+
+            if ok:
+                return HttpResponse("El video se subio jevi")
+            else:
+                return HttpResponse("No se ha podido subir el video")
         else:
             return HttpResponse("No validongo")
