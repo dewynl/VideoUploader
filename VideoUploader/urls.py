@@ -18,10 +18,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from VideoUploader.views import uploadVideo, login
+from VideoUploader.views import index, uploadVideo, login
 
 urlpatterns = [
-    url(r"^", index, name="Index"),
+    url(r"^$", index, name="Index"),
     url(r"^logIn/$", login, name="Login"),
     url(r"^uploadVideo/$", uploadVideo, name="UploadVideo"),
     url(r'^admin/', admin.site.urls)
