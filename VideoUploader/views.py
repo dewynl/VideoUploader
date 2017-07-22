@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from zeep import Client
 
 from VideoUploader.Forms.forms import LoginForm, UploadForm
+from VideoUploader import services
 
 url = "http://localhost:7777/ws/VideoWebService?wsdl"
 client = Client(url)
@@ -37,6 +38,13 @@ def login(request):
             else:
                 return HttpResponse("Credenciales no válidos")
 
+
+
+
+def get( request):
+    template = loader.get_template("home-page.html")
+    videos_list = services.get_videos('06/07/2017', '13/07/2017')
+    return HttpResponse(template.render({"videos": videos_list}, request))
 
 @csrf_exempt
 def uploadVideo(request):
