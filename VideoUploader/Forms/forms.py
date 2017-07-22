@@ -35,3 +35,12 @@ class UploadForm(forms.Form):
     thumbnail = forms.CharField(label='thumbnail', required=False,
                            widget=forms.FileInput(attrs={'class': 'form-control file'}))
 
+
+class dateForm(forms.Form):
+    from_ = forms.CharField(label='Form',  required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'FromDate',
+                                                             'type' : 'date'}))
+    to = forms.CharField(label='Todate', required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ToDate',
+                                                          'type' : 'date'}))
+

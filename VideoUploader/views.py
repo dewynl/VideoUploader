@@ -38,14 +38,6 @@ def login(request):
             else:
                 return HttpResponse("Credenciales no válidos")
 
-
-
-
-def get( request):
-    template = loader.get_template("home-page.html")
-    videos_list = services.get_videos('06/07/2017', '13/07/2017')
-    return HttpResponse(template.render({"videos": videos_list}, request))
-
 @csrf_exempt
 def uploadVideo(request):
     if 'sessionUsername' in request.session:
@@ -78,3 +70,10 @@ def uploadVideo(request):
                 return HttpResponseRedirect("/")
     else:
         return HttpResponseRedirect("/")
+
+@csrf_exempt
+def get(request):
+    template = loader.get_template("home-page.html")
+    videos_list = services.get_videos('06/07/2017', '22/07/2017')
+    print(videos_list)
+    return HttpResponse(template.render({'videos' : videos_list}, request))

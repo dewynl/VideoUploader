@@ -25,7 +25,7 @@ urlpatterns = [
     url(r"^logIn/$", login, name="Login"),
     url(r"^uploadVideo/$", uploadVideo, name="UploadVideo"),
     url(r'^admin/', admin.site.urls),
-    url(r'^videos/', get, name="get")
+    url(r'^videos/$', get, name="get")
 ]
 
 if settings.DEBUG:
