@@ -81,7 +81,8 @@
                     <!-- upload -->
                     <div class="col-md-8">
 						<h1 class="page-title"><span>Upload</span> Video</h1>
-                        <p style="color: red; display: block;" class="hidden" id="ingresarTitulo">* Debe ingresar un título al video.</p>
+                        <p style="color: red" class="hidden" id="camposVacios">* Corrija los campos vacios.</p>
+                        <p style="color: red" class="hidden" id="usersVacio">* Ingrese los usuarios permitidos.</p>
                         <form method="post" action="/uploadVideo/" enctype="multipart/form-data">
                         	<div class="row">
                                 <div class="col-md-6">
@@ -97,6 +98,10 @@
                                 	<label>Video upload</label>
                                     {{ form.video }}
                                 </div>
+                                <div class="col-md-6">
+                                	<label>Thumbnail Image</label>
+                                    {{ form.thumbnail }}
+                                </div>
                                 <div class="col-md-12">
                                     <label>Descripción:</label>
                                     {{ form.descripcion }}
@@ -108,20 +113,16 @@
                                 	<label class="usuarios-permitidos hidden">Usuarios Permitidos:</label>
                                     {{ form.usuarios }}
                                 </div>
-                            	<div class="col-md-6">
-                                	<label>Post Featured Image</label>
-                                    {{ form.thumbnail }}
-                                </div>
-                            	<div class="col-md-6">
+                            	<div class="col-md-12">
                                     <br>
-                                    <button type="button" onclick="form.submit()" id="contact_submit" class="btn btn-dm">Subir video</button>
+                                    <button type="button" id="video_submit" class="btn btn-dm">Subir video</button>
                                 </div>
                             </div>
                         </form>
                     </div><!-- // col-md-8 -->
 
                     <div class="col-md-4">
-                    	<a href="#"><img src="/static/img/upload-adv.png" alt=""></a>
+                    	<img src="/static/img/upload-adv.png" alt="">
                     </div><!-- // col-md-8 -->
                     <!-- // upload -->
                 </div><!-- // row -->

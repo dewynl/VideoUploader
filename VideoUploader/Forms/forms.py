@@ -11,16 +11,16 @@ class LoginForm(forms.Form):
 class UploadForm(forms.Form):
 
     titulo = forms.CharField(label='titulo', required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Titulo'}))
+                               widget=forms.TextInput(attrs={'id' : 'titulo', 'class': 'form-control', 'placeholder': 'Titulo'}))
 
     tags = forms.CharField(label='Post Tags', required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tags'}))
+                           widget=forms.TextInput(attrs={'id' : 'tags', 'class': 'form-control', 'placeholder': 'Tags'}))
 
     video = forms.CharField(label='Video', required=True,
-                               widget=forms.FileInput(attrs={'class': 'form-control file', 'placeholder': 'Video'}))
+                               widget=forms.FileInput(attrs={ 'id': 'video', 'class': 'form-control file', 'placeholder': 'Video'}))
 
     descripcion = forms.CharField(label="Descripcion", required=False,
-                                  widget=forms.Textarea(attrs={'class': 'form-control',
+                                  widget=forms.Textarea(attrs={ 'id' : 'descripcion', 'class': 'form-control',
                                                                 'placeholder': 'Pequeña reseña del video', 'rows': '4'}))
 
     privado = forms.CharField(label="privado", required=False,
@@ -28,7 +28,7 @@ class UploadForm(forms.Form):
                                                                              'id': 'privado'}))
 
     usuarios = forms.CharField(label='usuarios', required=False,
-                               widget=forms.Textarea(attrs={'class': 'form-control usuarios-permitidos hidden',
+                               widget=forms.Textarea(attrs={'id' : 'usuarios' ,'class': 'form-control usuarios-permitidos hidden',
                                                             'placeholder': 'Usernames de los usuarios permitidos.',
                                                             'name': 'usuarios', 'rows': '1'}))
 
