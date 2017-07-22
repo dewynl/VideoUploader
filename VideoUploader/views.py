@@ -6,6 +6,9 @@ from zeep import Client
 from VideoUploader.Forms.forms import LoginForm, UploadForm
 from VideoUploader import services
 
+import os
+
+
 url = "http://localhost:7777/ws/VideoWebService?wsdl"
 client = Client(url)
 
@@ -77,3 +80,12 @@ def get(request):
     videos_list = services.get_videos('06/07/2017', '22/07/2017')
     print(videos_list)
     return HttpResponse(template.render({'videos' : videos_list}, request))
+
+@csrf_exempt
+def ver(request, id):
+    template = loader.get_template("watch-page.html")
+    video = services.get_video(id)
+
+    print()
+
+    return HttpResponse(template.render({'video' : video},request))

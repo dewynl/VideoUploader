@@ -13,3 +13,9 @@ def get_videos(from_, to):
     videos = r.json()
     print(videos[0])
     return videos
+
+def get_video(id):
+    path = "http://localhost:4567/rest/ver/"+ id
+    r = requests.get(path)
+    video = r.json()
+    return  video

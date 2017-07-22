@@ -8,7 +8,7 @@
                 <i class="fa fa-close"></i>
             </a>
             <div id="logo">
-                <a href="/home"><img src="/img/logo.png" alt=""></a>
+                <a href="/home"><img src="/static/img/logo.png" alt=""></a>
             </div>
         </div><!-- // col-md-2 -->
         <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs hidden-sm">
@@ -32,18 +32,7 @@
         <div class="col-lg-2 col-md-2 col-sm-3 hidden-xs hidden-sm">
         <#if usuario??>
             <div class="dropdown">
-                <a data-toggle="dropdown" href="#" class="user-area">
-                    <div class="thumb">
-                        <#if usuario.profilePictPath ??>
-                            <img src= "/${usuario.profilePictPath}" alt="Not available">
-                        </#if>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
-                        <h2 style="font-size: 22px;">${usuario.nombre}</h2>
-                        <!--<i class="fa fa-angle-down"></i>-->
-                    </div>
-                </a>
+                <a data-toggle="dropdown" href="#" class="user-area"></a>
                 <br>
                 <ul class="dropdown-menu account-menu">
                     <li><a href="/modificarUserInfo"><i class="fa fa-edit color-1"></i>Editar Perfil</a></li>
