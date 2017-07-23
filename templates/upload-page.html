@@ -83,7 +83,7 @@
 						<h1 class="page-title"><span>Upload</span> Video</h1>
                         <p style="color: red" class="hidden" id="camposVacios">* Corrija los campos vacios.</p>
                         <p style="color: red" class="hidden" id="usersVacio">* Ingrese los usuarios permitidos.</p>
-                        <form method="post" action="/uploadVideo/" enctype="multipart/form-data">
+                        <form method="post" action="/uploadVideo/" enctype="multipart/form-data" id="submit_video_form">
                         	<div class="row">
                                 <div class="col-md-6">
                                 	<label>Titulo</label>
@@ -95,10 +95,12 @@
                                 </div>
 
                             	<div class="col-md-6">
+                                    <p id="video_notif" class="hidden" style="color:red">* El archivo debe ser un video.</p>
                                 	<label>Video upload</label>
                                     {{ form.video }}
                                 </div>
                                 <div class="col-md-6">
+                                    <p id="thumb_notif" style="color:red" class="hidden">* El archivo debe ser una imagen.</p>
                                 	<label>Thumbnail Image</label>
                                     {{ form.thumbnail }}
                                 </div>

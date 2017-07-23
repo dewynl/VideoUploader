@@ -17,7 +17,7 @@ class UploadForm(forms.Form):
                            widget=forms.TextInput(attrs={'id' : 'tags', 'class': 'form-control', 'placeholder': 'Tags'}))
 
     video = forms.CharField(label='Video', required=True,
-                               widget=forms.FileInput(attrs={ 'id': 'video', 'class': 'form-control file', 'placeholder': 'Video'}))
+                               widget=forms.TextInput(attrs={ 'id': 'upload_file', 'type' : 'file', 'class': 'form-control file', 'placeholder': 'Video'}))
 
     descripcion = forms.CharField(label="Descripcion", required=False,
                                   widget=forms.Textarea(attrs={ 'id' : 'descripcion', 'class': 'form-control',
@@ -33,7 +33,7 @@ class UploadForm(forms.Form):
                                                             'name': 'usuarios', 'rows': '1'}))
 
     thumbnail = forms.CharField(label='thumbnail', required=False,
-                           widget=forms.FileInput(attrs={'class': 'form-control file'}))
+                           widget=forms.TextInput(attrs={'class': 'form-control file', 'id' : 'thumbnail_file', 'type' : 'file'}))
 
 
 class dateForm(forms.Form):

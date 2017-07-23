@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
 
-    var ok = true, usersOK = true;
+    var ok = true, usersOK = true, fotoOK = false, videoOK;
 
     $("#privado").click(function () {
         if(document.getElementById("privado").checked){
@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#input").blur(function () {
+    $("#titulo").blur(function () {
         if (!$("#input").val()) {
             $("#ingresarTitulo").removeClass("hidden");
         } else {
@@ -25,7 +25,8 @@ $(document).ready(function () {
 
     $("#video_submit").click(function (e) {
         verifyBlankFields();
-        if (ok && usersOK){
+        console.log(ok + "|" + usersOK + "|" + fotoOK + "|" + videoOK)
+        if (ok && usersOK && fotoOK && videoOK){
             console.log("Ta OK");
             $("#submit_video_form").submit();
         }
@@ -36,31 +37,32 @@ $(document).ready(function () {
         console.log(type);
         if  (type.substring(0, 5) !== "video"){
             $("#video_notif").removeClass("hidden");
-            ok = false;
+            videoOK = false;
             console.log("No es un video");
         } else {
             $("#video_notif").addClass("hidden");
-            ok = true;
+            videoOK = true;
         }
     });
 
-    $("#featured_image").on("change", function () {
+    $("#thumbnail_file").on("change", function () {
         var type = this.files[0].type;
         if  (type.substring(0, 5) !== "image"){
-            ok = false;
+            fotoOK = false;
             $("#thumb_notif").removeClass("hidden");
             console.log("No es una foto");
         } else {
             $("#thumb_notif").addClass("hidden");
-            ok = true;
+            fotoOK = true;
         }
     });
 
 
     function verifyBlankFields() {
-        console.log("Verifying...");
+        console.log("Verifying...ok");
+        console.log(ok + "|" + usersOK);
         //region Verificar campos vacios
-        if (!$("#input").val() || !$("#upload_file").val() || !$("#featured_image").val()){
+        if (!$("#titulo").val() || !$("#upload_file").val() || !$("#thumbnail_file").val()){
             console.log("Algo vacio");
             $("#camposVacios").removeClass("hidden");
             ok = false;
