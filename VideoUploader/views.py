@@ -3,11 +3,8 @@ from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from zeep import Client
 
-from VideoUploader.Forms.forms import LoginForm, UploadForm
+from VideoUploader.Forms.forms import LoginForm, UploadForm, dateForm
 from VideoUploader import services
-
-import os
-
 
 url = "http://localhost:7777/ws/VideoWebService?wsdl"
 client = Client(url)
@@ -37,7 +34,7 @@ def login(request):
             print(logged)
             if logged:
                 request.session['sessionUsername'] = usuario
-                return HttpResponseRedirect("/uploadVideo")
+                return HttpResponseRedirect("/")
             else:
                 return HttpResponse("Credenciales no válidos")
 
@@ -66,26 +63,36 @@ def uploadVideo(request):
                 ok = client.service.uploadVideo(titulo, tags, video.temporary_file_path(), descripcion, privado,
                                                         usuarios, thumbnail.temporary_file_path())
                 if ok:
-                    return HttpResponse("El video se subio jevi.")
+                    print("Se subió el video.")
+                    return HttpResponse("/")
                 else:
                     return HttpResponse("No se ha podido subir el video")
             else:
-                return HttpResponseRedirect("/")
+                return HttpResponse("Form no válido")
     else:
         return HttpResponseRedirect("/")
 
 @csrf_exempt
-def get(request):
+def home(request):
+    usuario = None
+    videos_list = []
     template = loader.get_template("home-page.html")
-    videos_list = services.get_videos('06/07/2017', '22/07/2017')
-    print(videos_list)
-    return HttpResponse(template.render({'videos' : videos_list}, request))
+    if request.method == 'POST':
+        form = dateForm(request.POST)
+        FROM = form.data.get("fromDate")
+        TO = form.data.get("toDate")
+        videos_list = services.get_videos(FROM, TO)
+    elif request.method == 'GET':
+        form = dateForm()
+
+    if 'sessionUsername' in request.session:
+        usuario = request.session['sessionUsername']
+
+    return HttpResponse(template.render({'videos' : videos_list, 'form' : form,
+                                         'usuario' : usuario, 'home' : True}, request))
 
 @csrf_exempt
 def ver(request, id):
     template = loader.get_template("watch-page.html")
     video = services.get_video(id)
-
-    print()
-
     return HttpResponse(template.render({'video' : video},request))

@@ -8,46 +8,53 @@
                 <i class="fa fa-close"></i>
             </a>
             <div id="logo">
-                <a href="/home"><img src="/static/img/logo.png" alt=""></a>
+                <a href="/"><img src="/static/img/logo.png" alt=""></a>
             </div>
         </div><!-- // col-md-2 -->
         <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs hidden-sm">
             <div class="search-form">
-                <form id="search" action="/search" method="get">
-                    <input name="query" type="text" placeholder="Search here video posts..."/>
-                    <input type="submit" value="Keywords" />
+                <form id="search" action="/" method="post">
+                    <div class="col-md-6">
+                        {{ form.fromDate }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.toDate }}
+                    </div>
                 </form>
             </div>
         </div><!-- // col-md-3 -->
         <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
-            <ul class="top-menu">
-                <li><a href="/home">home</a></li>
-                <li><a href="#">trending</a></li>
-                <li><a href="/historial">history</a></li>
-            </ul>
+            {% if home != None %}
+                 <div class="col-md-12">
+                     <input class="btn btn-md btn-info" type="submit" value="Buscar" id="buscar-videos-button">
+                 </div>
+            {% endif %}
         </div><!-- // col-md-4 -->
         <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs hidden-sm">
 
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 hidden-xs hidden-sm">
-        <#if usuario??>
-            <div class="dropdown">
-                <a data-toggle="dropdown" href="#" class="user-area"></a>
-                <br>
-                <ul class="dropdown-menu account-menu">
-                    <li><a href="/modificarUserInfo"><i class="fa fa-edit color-1"></i>Editar Perfil</a></li>
-                    <li><a href="/upload"><i class="fa fa-video-camera color-2"></i>Subir Video</a></li>
-                    <li><a href="/canal"><i class="fa fa-star color-3"></i>Mi Canal</a></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out color-4"></i>Sign Out</a></li>
-                </ul>
-            </div>
-        <#else>
-            <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
-                <ul class="top-menu">
-                    <li><a href="/logIn">Login</a></li>
-                </ul>
-            </div><!-- // col-md-4 -->
-        </#if>
+            {% if usuario != null %}
+                <div class="dropdown">
+                        <a data-toggle="dropdown" href="#" class="user-area">
+                            <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
+                        <h2 style="font-size: 22px;">{{ usuario }}</h2>
+                        <!--<i class="fa fa-angle-down"></i>-->
+                    </div>
+                        </a>
+                        <br>
+                        <ul class="dropdown-menu account-menu">
+                            <li><a href="/uploadVideo/"><i class="fa fa-video-camera color-2"></i>Subir Video</a></li>
+                            <li><a href="/logIn/"><i class="fa fa-sign-out color-4"></i>Sign Out</a></li>
+                        </ul>
+                    </div>
+            {% else %}
+                 <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
+                    <ul class="top-menu">
+                        <li><a href="/logIn">Login</a></li>
+                    </ul>
+                </div><!-- // col-md-4 -->
+            {% endif %}
         </div>
     </div><!-- // row -->
 </div><!-- // container-full -->

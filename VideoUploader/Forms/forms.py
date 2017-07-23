@@ -37,10 +37,10 @@ class UploadForm(forms.Form):
 
 
 class dateForm(forms.Form):
-    from_ = forms.CharField(label='Form',  required=True,
+    fromDate= forms.CharField(label='Form',  required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'FromDate',
                                                              'type' : 'date'}))
-    to = forms.CharField(label='Todate', required=True,
+    toDate = forms.CharField(label='Todate', required=True,
                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ToDate',
                                                           'type' : 'date'}))
 
