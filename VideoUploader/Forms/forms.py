@@ -4,6 +4,7 @@ from django import forms
 class LoginForm(forms.Form):
     username = forms.CharField(label='username', max_length=15, required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+
     clave = forms.CharField(label='clave', required=True,
                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Clave', 'type': 'password'}))
 
