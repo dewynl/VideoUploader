@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -34,46 +35,51 @@ def login(request):
             print(logged)
             if logged:
                 request.session['sessionUsername'] = usuario
-                return HttpResponseRedirect("/")
+                return HttpResponseRedirect("/home")
             else:
                 return HttpResponse("Credenciales no válidos")
 
 @csrf_exempt
 def uploadVideo(request):
+    print(request.session['sessionUsername'])
     if 'sessionUsername' in request.session:
         if request.method == 'GET':
             form = UploadForm()
             template = loader.get_template("upload-page.html")
-            return HttpResponse(template.render({"form": form}), request)
+            return HttpResponse(template.render({"form": form, 'usuario' : request.session['sessionUsername']}), request)
         elif request.method == 'POST':
             print(request.POST)
             print(request.FILES)
             form = UploadForm(request.POST, request.FILES)
-            if form.is_valid():
-                titulo = form.data.get("titulo")
-                tags = form.data.get("tags")
-                video = request.FILES['video']
-                descripcion = form.data.get('descripcion')
-                privado = form.data.get('privado')
-                usuarios = None
-                if privado == 'on':
-                    usuarios = privado = form.data.get('usuarios')
-                thumbnail = request.FILES['thumbnail']
+            #if form.is_valid():
+            titulo = form.data.get("titulo")
+            tags = form.data.get("tags")
+            video = request.FILES['video']
+            descripcion = form.data.get('descripcion')
+            privado = form.data.get('privado')
+            usuarios = None
+            if privado == 'on':
+                usuarios = privado = form.data.get('usuarios')
+            thumbnail = request.FILES['thumbnail']
 
-                ok = client.service.uploadVideo(titulo, tags, video.temporary_file_path(), descripcion, privado,
-                                                        usuarios, thumbnail.temporary_file_path())
-                if ok:
-                    print("Se subió el video.")
-                    return HttpResponse("/")
-                else:
-                    return HttpResponse("No se ha podido subir el video")
+            print(video.read())
+
+            ok = client.service.uploadVideo(titulo, tags, video.read(), descripcion, privado,
+                                                    usuarios, thumbnail.temporary_file_path())
+            if ok:
+                print("Se subió el video.")
+                return HttpResponse("/home/")
             else:
-                return HttpResponse("Form no válido")
+                return HttpResponse("No se ha podido subir el video")
+           # else:
+            #    messages.error(request, "Error")
+            #    return HttpResponse("Form no válido")
     else:
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/home/")
 
 @csrf_exempt
 def home(request):
+    global form
     usuario = None
     videos_list = []
     template = loader.get_template("home-page.html")
@@ -95,4 +101,4 @@ def home(request):
 def ver(request, id):
     template = loader.get_template("watch-page.html")
     video = services.get_video(id)
-    return HttpResponse(template.render({'video' : video},request))
+    return HttpResponse(template.render({'video' : video}, request))

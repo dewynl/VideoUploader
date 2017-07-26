@@ -22,9 +22,9 @@ from VideoUploader.views import uploadVideo, login , home, ver
 
 urlpatterns = [
     url(r'ver/(?P<id>\d+)/$', ver, name="Ver"),
-    url(r"^logIn/$", login, name="Login"),
+    url(r"^$", login, name="Login"),
     url(r"^uploadVideo/$", uploadVideo, name="UploadVideo"),
-    url(r'^$', home, name="Home"),
+    url(r'^home/$', home, name="Home"),
     url(r'^admin/', admin.site.urls),
 ]
 
